@@ -1,5 +1,9 @@
 package me.playground.concurrent;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Calculator implements Runnable {
 
   /**
@@ -43,6 +47,59 @@ public class Calculator implements Runnable {
     System.out.printf("Minimum priority %s\n", Thread.MIN_PRIORITY);
     System.out.printf("Normal priority %s\n", Thread.NORM_PRIORITY);
     System.out.printf("Maximum priority %s\n", Thread.MAX_PRIORITY);
-    Thread thread = new Thread(new Calculator());
+
+    Thread[] threads = new Thread[10];
+    Thread.State[] states = new Thread.State[10];
+
+    for (int i = 0; i < 10; i++){
+      threads[i] = new Thread(new Calculator());
+      threads[i].setName("My Thread " + i);
+      if ((i % 2) ==0) {
+        threads[i].setPriority(Thread.MAX_PRIORITY);
+      } else {
+        threads[i].setPriority(Thread.MIN_PRIORITY);
+      }
+    }
+
+    // write the result to a file
+    try (FileWriter fileWriter = new FileWriter("./build/log.txt");
+         PrintWriter printWriter = new PrintWriter(fileWriter)) {
+      for (int i = 0; i< 10; i++) {
+        printWriter.println("Main: Status of Thread " + i + ":" + threads[i].getState());
+        states[i] = threads[i].getState();
+      }
+
+      for (int i = 0; i < 10; i++) {
+        threads[i].start();
+      }
+
+      boolean finish = false;
+      while (!finish) {
+        for (int i = 0; i < 10; i++) {
+          if (threads[i].getState() != states[i]) {
+            writeThreadInfo(printWriter, threads[i], states[i]);
+            states[i] = threads[i].getState();
+          }
+        }
+        finish = true;
+        for (int i = 0; i < 10; i++) {
+          finish = finish && (threads[i].getState() == Thread.State.TERMINATED);
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  private static void writeThreadInfo(PrintWriter pw,
+                                      Thread thread,
+                                      Thread.State state) {
+    pw.printf("Main : Id %d - %s\n", thread.getId(),
+            thread.getName());
+    pw.printf("Main : Priority: %d\n", thread.getPriority());
+    pw.printf("Main : Old State: %s\n", state);
+    pw.printf("Main : New State: %s\n", thread.getState());
+    pw.printf("Main : ************************************\n");
   }
 }
