@@ -11,7 +11,7 @@ public class VideoConference implements Runnable {
     }
 
     public void arrive(String name) {
-        System.out.printf("%s has arrived.", name);
+        System.out.printf("%s has arrived.\n", name);
         controller.countDown();
         System.out.printf("VideoConference: waiting for %d participants.\n", controller.getCount());
     }
@@ -30,7 +30,7 @@ public class VideoConference implements Runnable {
     @Override
     public void run() {
         System.out.printf("VideoConference: Initialization: %d participants.\n", controller.getCount());
-        try{
+        try {
             controller.await();
             System.out.println("VideoConference: all participants have come.");
             System.out.println("VideoConference: let's start...");

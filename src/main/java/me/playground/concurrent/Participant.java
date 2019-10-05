@@ -35,6 +35,13 @@ public class Participant implements Runnable {
     }
 
     public static void main(String[] args) {
-
+        VideoConference videoConference = new VideoConference(5);
+        Thread conferenceThread = new Thread(videoConference);
+        conferenceThread.start();
+        for (int i = 0; i < 10; i++) {
+            Participant participant = new Participant("Participant " + i, videoConference);
+            Thread participantThread = new Thread(participant);
+            participantThread.start();
+        }
     }
 }
