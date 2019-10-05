@@ -1,4 +1,4 @@
-package me.playground.concurrent;
+package me.playground.concurrent.semaphore;
 
 public class PrintJob implements Runnable {
 

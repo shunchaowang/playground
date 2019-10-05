@@ -1,4 +1,4 @@
-package me.playground.concurrent;
+package me.playground.concurrent.semaphore;
 
 import java.util.Date;
 import java.util.concurrent.Semaphore;

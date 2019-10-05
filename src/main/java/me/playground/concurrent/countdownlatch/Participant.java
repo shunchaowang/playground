@@ -1,4 +1,4 @@
-package me.playground.concurrent;
+package me.playground.concurrent.countdownlatch;
 
 import java.util.concurrent.TimeUnit;
 
