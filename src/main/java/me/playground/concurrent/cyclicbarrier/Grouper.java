@@ -26,7 +26,7 @@ public class Grouper implements Runnable {
         final int rows = 10000;
         final int col = 1000;
         final int search = 5;
-        final int participants = 5;
+        final int participants = 100;
         final int linesPerParticipant = rows / participants;
 
         MatrixMock mock = new MatrixMock(rows, col, search);
