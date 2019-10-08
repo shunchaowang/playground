@@ -1,4 +1,4 @@
-package me.playground.concurrent.debitprocess;
+package me.playground.concurrent.debitprocess.latch;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;

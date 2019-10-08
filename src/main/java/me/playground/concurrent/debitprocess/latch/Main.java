@@ -1,4 +1,4 @@
-package me.playground.concurrent.debitprocess;
+package me.playground.concurrent.debitprocess.latch;
 
 import java.util.Date;
 import java.util.concurrent.Callable;
@@ -15,21 +15,18 @@ import java.util.concurrent.TimeUnit;
  * enough money in the account for the debit transaction; - and a Fraud Service to check for fraud
  * activity.
  */
-public class CountDownLatchApproach {
+public class Main {
 
   public static void main(String[] args) {
     final int count = 3;
     CountDownLatch latch = new CountDownLatch(count);
     AuthenticationService authenticationService = new AuthenticationService(latch);
     FraudService fraudService = new FraudService(latch);
-
-    Thread authenticationThread = new Thread(authenticationService, "Authentication Service");
-    authenticationThread.start();
-    Thread fraudThread = new Thread(fraudService, "Fraud Service");
-    fraudThread.start();
     Callable<Boolean> balanceService = new BalanceService(latch);
     ExecutorService executor = Executors.newFixedThreadPool(10);
     Future<Boolean> balanceVerified = executor.submit(balanceService);
+    executor.submit(authenticationService);
+    executor.submit(fraudService);
 
     boolean proceed = false;
     try {

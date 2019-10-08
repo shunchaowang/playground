@@ -1,4 +1,4 @@
-package me.playground.concurrent.debitprocess;
+package me.playground.concurrent.debitprocess.latch;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -12,6 +12,7 @@ public class FraudService implements Runnable {
 
     @Override
     public void run() {
+        Thread.currentThread().setName("Fraud Service");
         System.out.printf(
                 "[%s] - Latch remaining %d\n", Thread.currentThread().getName(), latch.getCount());
         System.out.printf("[%s] - Starting fraud detection...\n", Thread.currentThread().getName());
