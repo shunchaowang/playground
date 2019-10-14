@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SafeTask implements Runnable {
 
-  private ThreadLocal<Date> startDate = new ThreadLocal<>() {
+  private ThreadLocal<Date> startDate = new ThreadLocal<Date>() {
     /**
      * Returns the current thread's "initial value" for this
      * thread-local variable.  This method will be invoked the first
