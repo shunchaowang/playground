@@ -1,5 +1,8 @@
 package me.beautyofalgorithm;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 public class LinkedList {
 
   class LinkedNode {
@@ -61,7 +64,29 @@ public class LinkedList {
     }
   }
 
-  public static void main(String[] args) {
+  public LinkedNode head() {
+    return head;
+  }
 
+  public static void main(String[] args) {
+    long start = System.currentTimeMillis();
+    LinkedList list = new LinkedList();
+    Random random = new Random();
+    for (int i = 0; i < 20; i++) {
+      list.add(random.nextInt(20));
+    }
+    long end = System.currentTimeMillis();
+    long duration = TimeUnit.MILLISECONDS.toSeconds(end - start);
+    System.out.printf("Time to load LinkedList is %d seconds.\n", duration);
+    System.out.print("Now iterate LinkedList: ");
+    start = System.currentTimeMillis();
+    LinkedNode current = list.head();
+    while (current != null) {
+      System.out.print(current.value + " ");
+      current = current.next;
+    }
+    end = System.currentTimeMillis();
+    duration = TimeUnit.MILLISECONDS.toSeconds(end - start);
+    System.out.printf("Time to iterate LinkedList is %d seconds.\n", duration);
   }
 }
