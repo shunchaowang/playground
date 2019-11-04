@@ -30,10 +30,16 @@ public class LinkedList {
     // need to check if value exists
     // if value exists return without doing anything
     LinkedNode current = head;
-    if (current.value == value) {
-      return;
+    while (current != null) {
+      if (current.value == value) {
+        return;
+      }
+
     }
     while (current.hasNext()) {
+      if (current.value == value) {
+        return;
+      }
       current = current.next;
     }
     current.next = node;
