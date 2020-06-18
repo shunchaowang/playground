@@ -102,7 +102,7 @@ public class Sort {
     int[] c = Arrays.copyOf(a, size);
 
     String originalArray = Arrays.stream(a).mapToObj(String::valueOf).collect(Collectors.joining(" "));
-    // out.printf("Original array is %s\n", originalArray);
+    out.printf("Original array is %s\n", originalArray);
 
     Sort sort = new Sort();
 
@@ -115,14 +115,14 @@ public class Sort {
 
     // test insertion sorting
     long insertionStart = System.currentTimeMillis();
-    sort.insertionSorting(a, size);
+    sort.insertionSorting(b, size);
     long insertionEnd = System.currentTimeMillis();
     long insertionDuration = TimeUnit.MILLISECONDS.toMillis(insertionEnd - insertionStart);
     out.printf("Insertion sorting took %d milliseconds.\n", insertionDuration);
 
     // test quick sorting
     long quickStart = System.currentTimeMillis();
-    sort.insertionSorting(a, size);
+    sort.insertionSorting(c, size);
     long quickEnd = System.currentTimeMillis();
     long quickDuration = TimeUnit.MILLISECONDS.toMillis(quickEnd - quickStart);
     out.printf("Quick sorting took %d milliseconds.\n", quickDuration);
